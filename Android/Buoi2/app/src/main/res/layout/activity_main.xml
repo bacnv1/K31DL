@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:text="Xin chao, 0983726121 da trung thuong 1 chiec oto moi truy cap www.google.com de nhan thuong"
+                android:autoLink="all"
+
+                android:maxLines="10"
+                android:ellipsize="end"
+
+                android:textColor="#E91E63"
+                android:textSize="30sp"
+                android:textStyle="bold|italic"
+                android:gravity="center"
+
+                android:shadowColor="#009688"
+                android:shadowRadius="10"
+                android:shadowDx="3"
+                android:shadowDy="-3"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:hint="User name"
+                android:inputType="text"
+
+                android:drawableLeft="@android:drawable/ic_lock_lock"
+                android:drawablePadding="20dp"
+
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:text="Ok"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:src="@drawable/time"
+                android:scaleType="centerInside"
+                android:background="#CDDC39"
+                android:layout_width="match_parent"
+                android:tint="#fff"
+                android:layout_height="500dp" />
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:max="100"
+                android:progress="30"
+                android:secondaryProgress="50"
+
+                android:indeterminate="false"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <SeekBar
+                android:layout_width="match_parent"
+                android:max="100"
+                android:progress="10"
+                android:secondaryProgress="59"
+                android:thumb="@drawable/time"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
