@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Buoi7</string>
+
+    <string name="title_login">Đăng nhập</string>
+    <string name="hint_user_name">Tài khoản</string>
+    <string name="hint_password">Mật khẩu</string>
+    <string name="title_register">Đăng ký</string>
+    <string name="ok">Đi luôn</string>
+    <string name="data_invalid">Tài khoản hoặc mật khẩu không hợp lệ</string>
+    <string name="register_cancelled">Đăng ký bị hủy bỏ</string>
+    <string name="hint_value">Gía trị</string>
+    <string name="call">Gọi</string>
+    <string name="browser">Trình duyệt</string>
+    <string name="gallery">Thư viện</string>
+
+</resources>

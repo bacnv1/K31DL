@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/dp_16"
+    android:orientation="vertical">
+    <TextView
+        android:text="@string/title_login"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:textSize="@dimen/sp_28"
+        android:padding="@dimen/dp_50"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/edt_user_name"
+        android:hint="@string/hint_user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/edt_password"
+        android:inputType="textPassword"
+        android:hint="@string/hint_password"
+        android:layout_marginTop="@dimen/dp_16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/btn_ok"
+        android:text="@string/ok"
+        android:layout_marginTop="@dimen/dp_16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/btn_register"
+        android:text="@string/title_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>
