@@ -10,6 +10,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -18,9 +25,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnSuccessListener<Void>, OnFailureListener, ValueEventListener {
 
@@ -34,12 +47,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference reference = database.getReference("Chat");
 
+    private ArrayList<String> arrToken = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
         reference.addValueEventListener(this);
+        getToken();
+    }
+
+    private void getToken() {
+        database.getReference("Token").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                arrToken.clear();
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    String token = snapshot.getValue(String.class);
+                    arrToken.add(token);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void initViews() {
@@ -50,6 +84,56 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         edtMessage = findViewById(R.id.edt_message);
         imSend = findViewById(R.id.im_send);
         imSend.setOnClickListener(this);
+    }
+
+    private void sendFCM(String user, String message) {
+        try {
+            final JSONObject object = new JSONObject();
+            JSONArray arr = new JSONArray(arrToken);
+            object.put("registration_ids", arr);
+            JSONObject notification = new JSONObject();
+            notification.put("body", message);
+            notification.put("title", user);
+            object.put("notification", notification);
+
+            StringRequest request = new StringRequest(Request.Method.POST, "https://fcm.googleapis.com/fcm/send", new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    String err = new String(error.networkResponse.data);
+                    int a = 3;
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers = new HashMap<>();
+                    headers.put("Content-Type", "application/json");
+                    headers.put("Authorization", "key=AIzaSyAsjZ8nC459jb-4GNma2StMDTJXOe_KFe8");
+                    return headers;
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    String s = object.toString();
+                    return s.getBytes();
+                }
+
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
+            };
+
+            RequestQueue queue = Volley.newRequestQueue(this);
+            queue.add(request);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -65,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         reference.child(chat.getId()+"").setValue(chat)
         .addOnSuccessListener(this)
         .addOnFailureListener(this);
+        sendFCM("BacNV", message);
     }
 
     @Override
