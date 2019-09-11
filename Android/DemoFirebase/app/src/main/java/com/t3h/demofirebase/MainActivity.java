@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 arrToken.clear();
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String token = snapshot.getValue(String.class);
                     arrToken.add(token);
                 }
@@ -96,18 +96,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             notification.put("title", user);
             object.put("notification", notification);
 
-            StringRequest request = new StringRequest(Request.Method.POST, "https://fcm.googleapis.com/fcm/send", new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
+            StringRequest request = new StringRequest(
+                    Request.Method.POST,
+                    "https://fcm.googleapis.com/fcm/send",
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
 
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    String err = new String(error.networkResponse.data);
-                    int a = 3;
-                }
-            }) {
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            String err = new String(error.networkResponse.data);
+                            int a = 3;
+                        }
+                    })
+            {
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     Map<String, String> headers = new HashMap<>();
@@ -146,9 +151,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         chat.setDate(format.format(new Date()));
         chat.setMessage(message);
         chat.setName("BacNV");
-        reference.child(chat.getId()+"").setValue(chat)
-        .addOnSuccessListener(this)
-        .addOnFailureListener(this);
+        reference.child(chat.getId() + "").setValue(chat)
+                .addOnSuccessListener(this)
+                .addOnFailureListener(this);
         sendFCM("BacNV", message);
     }
 
@@ -165,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
         final ArrayList<Chat> arr = new ArrayList<>();
-        for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
             Chat chat = snapshot.getValue(Chat.class);
             arr.add(chat);
         }
