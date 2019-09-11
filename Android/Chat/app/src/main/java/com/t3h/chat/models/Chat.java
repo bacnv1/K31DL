@@ -9,6 +9,8 @@ public class Chat implements Serializable {
     private long id;
     @SerializedName("user_name")
     private String userName;
+    @SerializedName("name")
+    private String name;
     @SerializedName("message")
     private String message;
     @SerializedName("pub_date")
@@ -28,5 +30,9 @@ public class Chat implements Serializable {
 
     public String getDate() {
         return date;
+    }
+
+    public String getName() {
+        return name;
     }
 }
